@@ -5,15 +5,15 @@ import glob
 PRICE_DIVIDER=1e18
 MAX_VALUE=0x3f3f3f3f
 
-redis_conn = StrictRedis(host='127.0.0.1', port= 6379,decode_responses=True)
+redis_conn = StrictRedis(host='127.0.0.1', port= 6379,decode_responses=True,charset='UTF-8', encoding='UTF-8')
 
 #连接池方式连接Redis
 # redis_pool = redis.ConnectionPool(host='127.0.0.1', port= 6379)
 # redis_conn = redis.Redis(connection_pool= redis_pool)
 
 #先清除目前Redis的数据便于测试
-# for key in redis_conn.keys():
-#     redis_conn.delete(key)
+for key in redis_conn.keys():
+    redis_conn.delete(key)
 
 # 数据路径
 filelists=glob.glob(".\data\*.json")
@@ -46,4 +46,4 @@ for address in redis_conn.keys():
         if min_price>price:
             min_price=price
             min_id=id
-    print(id,min_price)
+    print(min_id,min_price)
